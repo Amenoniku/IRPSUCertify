@@ -1,6 +1,6 @@
 <template lang="pug">
 
-.certificate
+.certificates
 
 </template>
 
@@ -9,12 +9,12 @@
 // import { mapActions, mapState, mapGetters } from 'vuex'
 
 export default {
-  name: 'Certificate'
+  name: 'Certificates'
 }
 </script>
 
 
 <style lang="sass">
-@import '../../assets/styles/variables.sass'
+@import '../assets/styles/variables.sass'
 
 </style>

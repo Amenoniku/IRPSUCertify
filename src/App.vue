@@ -1,17 +1,25 @@
 <template lang="pug">
 
-//-   img(alt='Vue logo' src='./assets/logo.png')
-
 section#app.section
   .container
+    figure.image.is-48x48
+      img(alt='Vue logo' src='./assets/logo.png')
+    Auth
 
 </template>
 
 <script>
+// import { mapActions } from 'vuex'
+
+import Auth from '@/components/auth'
+import Certificates from '@/components/certificates'
 
 export default {
   name: 'app',
-  components: {}
+  components: {
+    Auth,
+    Certificates
+  }
 }
 
 </script>
@@ -25,5 +33,7 @@ export default {
   -moz-osx-font-smoothing: grayscale
   text-align: center
   color: #2c3e50
+  figure
+    float: left
 
 </style>
