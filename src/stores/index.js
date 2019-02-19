@@ -3,9 +3,9 @@ import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 
 // Modules
-import app from './stores/app'
-import certificates from './stores/certificates'
-import session from './stores/session'
+import app from './app'
+import certificates from './certificates'
+import session from './session'
 
 Vue.use(Vuex)
 
