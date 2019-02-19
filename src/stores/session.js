@@ -12,7 +12,7 @@ export default {
     [UPDATE_TOKEN] (state, {token, refreshToken}) {
       state.token = token
       state.refreshToken = refreshToken
-    },
+    }
   },
   actions: {
     signin ({commit, dispatch}, {email, pass, clientId, clientSecret}) {

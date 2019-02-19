@@ -43,7 +43,7 @@ export const
     remove (number, token) {
       return del(`/v2/certificates/${number}`, undefined, token).then(generalSuccess, generalFailure)
     },
-    getInfo (number, token) {
+    find (number, token) {
       return get(`/v2/certificates/${number}`, undefined, token).then(generalSuccess, generalFailure)
     },
     update (number, token) {

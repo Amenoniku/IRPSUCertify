@@ -11,18 +11,39 @@
           v-model='sNumber'
           placeholder='Номер сиртификата')
       .control
-        a.button.is-primary
+        a.button.is-primary(@click='find(sNumber)')
           i.fas.fa-search
   //- list of Certificates
   .content
-    .columns
-      .column(v-for='item in 5')
+    .columns(v-if='certificates.length')
+      .column(v-for='item in certificates')
         .box
-          p.title.is-5 Narrow column {{ item }}
-          p.subtitle This column is only 200px wide.
-
+          span
+            strong Тип сертификата: 
+            | {{ item.cert_group_name }}
+          br
+          span
+            strong Номер: 
+            | {{ item.number }}
+          br
+          span
+            strong Имя: 
+            | {{ item.name }}
+          br
+          span
+            strong Фамилия: 
+            | {{ item.phname }}
+          br
+          span
+            strong Отчество: 
+            | {{ item.soname }}
+          br
+          span
+            strong Состояние: 
+            | {{ item.actual === 1 ? 'Активированный' : 'Неактивированный' }}
+    .subtitle Нет добавленных или найденных сертификатов
   .content
-    a.button.is-primary Добавить сертификат
+    a.button.is-primary(@click='addCertfy') Добавить сертификат
 
 </template>
 
@@ -34,8 +55,22 @@ export default {
   name: 'Certificates',
   data () {
     return {
-      sNumber: ''
+      sNumber: '9905000001'
     }
+  },
+  computed: {
+    ...mapState('certificates', {
+      certificates: state => state.certificates
+    })
+  },
+  methods: {
+    addCertfy () {
+
+    },
+    ...mapActions('certificates', {
+      add: 'add',
+      find: 'find',
+    })
   }
 }
 </script>
@@ -62,7 +97,7 @@ export default {
         @media (min-width: $min-width*$max-cols)
             min-width: calc(#{$column-width})
 
-@include n-columns(200px, true, 5)
+@include n-columns(300px, true, 5)
 
 
 </style>
