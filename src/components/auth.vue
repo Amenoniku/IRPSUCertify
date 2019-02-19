@@ -24,22 +24,34 @@
         i.fas.fa-lock
   .field
     p.control
-      button.button.is-success
+      button.button.is-success(@click=`signin({
+        email,
+        pass,
+        clientId,
+        clientSecret
+      })`)
         | Login
 
 </template>
 
 
 <script>
-// import { mapActions, mapState, mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'Auth',
   data () {
     return {
-      email: '',
-      pass: ''
+      email: 'candidate_api_manager',
+      pass: 'Us3oUs3M5M',
+      clientId: 'candidate_app',
+      clientSecret: 'vuejsispower'
     }
+  },
+  methods: {
+    ...mapActions('session', {
+      signin: 'signin'
+    })
   }
 }
 </script>

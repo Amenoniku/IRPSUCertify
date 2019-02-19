@@ -2,19 +2,19 @@
 import superagent from 'superagent'
 
 const DEV_MODE = process.env.NODE_ENV === 'development'
-const API_ROOT = DEV_MODE ? 'http://api-test.pfdo.ru' : window.location.origin
+const API_ROOT = DEV_MODE ? 'https://api-test.pfdo.ru:443' : window.location.origin
 const API_VERSION = 1
 const API_WITH_CREDENTIALS = true
 
 export const
   session = {
-    signin (username, password) {
+    signin (username, password, clientId, clientSecret) {
       let payload = {
         grant_type: 'password',
         username,
         password,
-        client_id: null,
-        client_secret: null
+        client_id: clientId,
+        client_secret: clientSecret
       }
       return post('/oauth2/token', payload).then(generalSuccess, generalFailure)
     },
