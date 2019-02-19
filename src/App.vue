@@ -4,12 +4,13 @@ section#app.section
   .container
     figure.image.is-48x48
       img(alt='Vue logo' src='./assets/logo.png')
-    Auth
+    Auth(v-if='!token')
+    Certificates(v-else)
 
 </template>
 
 <script>
-// import { mapActions } from 'vuex'
+import { mapState } from 'vuex'
 
 import Auth from '@/components/auth'
 import Certificates from '@/components/certificates'
@@ -19,6 +20,11 @@ export default {
   components: {
     Auth,
     Certificates
+  },
+  computed: {
+    ...mapState('session', {
+      token: state => state.token
+    })
   }
 }
 
