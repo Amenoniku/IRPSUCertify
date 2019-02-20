@@ -42,14 +42,14 @@
             span
               strong Состояние: 
               | {{ item.actual === 1 ? 'Активированный' : 'Неактивированный' }}
-          .buttons.has-addons.is-centered
+          .buttons.has-addons.is-centered(v-if='item.actual !== 1')
             a.button.is-primary(@click='edit(item)')
               span.icon.is-small
                 i.fas.fa-edit
-            a.button.is-primary(v-if='item.actual !== 1' title='Активировать' @click='activate(item.number)')
+            a.button.is-primary(title='Активировать' @click='activate(item.number)')
               span.icon.is-small
                 i.fas.fa-chart-line
-            a.button.is-primary(v-if='item.actual !== 1' @click='remove(item.number)')
+            a.button.is-primary(@click='remove(item.number)')
               span.icon.is-small
                 i.fas.fa-trash-alt
 
@@ -74,7 +74,7 @@ export default {
   },
   data () {
     return {
-      sNumber: '9905748329'
+      sNumber: '9905000001'
     }
   },
   computed: {
@@ -86,15 +86,13 @@ export default {
     edit (item) {
 
     },
-    activate (num) {
-
-    },
     openAddCertfy () {
       this.$refs.addCertify.toggle()
     },
     ...mapActions('certificates', {
       find: 'find',
-      remove: 'remove'
+      remove: 'remove',
+      activate: 'activate'
     })
   }
 }

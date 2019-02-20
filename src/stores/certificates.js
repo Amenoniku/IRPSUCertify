@@ -29,7 +29,7 @@ export default {
         {cb: API.find, params: [number], auth: true},
         {root: true}
       ).then(res => {
-        commit(ADD_CERTIFICATES, res.data)
+        if (res.data.exist) commit(ADD_CERTIFICATES, res.data)
       })
     },
     add ({commit, dispatch}, {name, soname, phname, email, birthday}) {
@@ -70,5 +70,15 @@ export default {
         commit(REMOVE_CERTIFICATES, number)
       })
     },
+    activate ({commit, dispatch, state}, number) {
+      return dispatch(
+        'apiWrapper',
+        {cb: API.activate, params: [number], auth: true},
+        {root: true}
+      ).then(res => {
+        console.log(res)
+        // if (res.data.exist) commit(ADD_CERTIFICATES, res.data)
+      })
+    }
   }
 }

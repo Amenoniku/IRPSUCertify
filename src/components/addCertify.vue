@@ -60,11 +60,11 @@ export default {
   },
   data () {
     return {
-      name: '',
-      soname: '',
-      phname: '',
-      email: '',
-      birthday: '',
+      name: 'Имя',
+      soname: 'Фамилия',
+      phname: 'Отчество',
+      email: 'foo@bar.ru',
+      birthday: ''
     }
   },
   computed: {
