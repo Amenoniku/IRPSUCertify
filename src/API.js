@@ -116,7 +116,7 @@ function perform (method, endpoint, payload, token, ignoreRoot) {
     request.end((err, response) => {
       let body = response.body
       let status = response.statusCode
-
+      console.log(status)
       if (err) return reject(err)
       else return resolve(body)
     })

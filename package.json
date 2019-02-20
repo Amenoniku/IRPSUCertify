@@ -10,6 +10,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.7.2",
     "bulma": "^0.7.4",
+    "moment": "^2.24.0",
     "superagent": "^4.1.0",
     "vue": "^2.5.22",
     "vuex": "^3.0.1",

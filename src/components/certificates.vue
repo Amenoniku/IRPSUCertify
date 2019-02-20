@@ -18,32 +18,46 @@
     .columns(v-if='certificates.length')
       .column(v-for='item in certificates')
         .box
-          span
-            strong Тип сертификата: 
-            | {{ item.cert_group_name }}
-          br
-          span
-            strong Номер: 
-            | {{ item.number }}
-          br
-          span
-            strong Имя: 
-            | {{ item.name }}
-          br
-          span
-            strong Фамилия: 
-            | {{ item.phname }}
-          br
-          span
-            strong Отчество: 
-            | {{ item.soname }}
-          br
-          span
-            strong Состояние: 
-            | {{ item.actual === 1 ? 'Активированный' : 'Неактивированный' }}
+          .content
+            span
+              strong Тип сертификата: 
+              | {{ item.cert_group_name }}
+            br
+            span
+              strong Номер: 
+              | {{ item.number }}
+            br
+            span
+              strong Имя: 
+              | {{ item.name }}
+            br
+            span
+              strong Фамилия: 
+              | {{ item.phname }}
+            br
+            span
+              strong Отчество: 
+              | {{ item.soname }}
+            br
+            span
+              strong Состояние: 
+              | {{ item.actual === 1 ? 'Активированный' : 'Неактивированный' }}
+          .buttons.has-addons.is-centered
+            a.button.is-primary(@click='edit(item)')
+              span.icon.is-small
+                i.fas.fa-edit
+            a.button.is-primary(v-if='item.actual !== 1' title='Активировать' @click='activate(item.number)')
+              span.icon.is-small
+                i.fas.fa-chart-line
+            a.button.is-primary(v-if='item.actual !== 1' @click='remove(item.number)')
+              span.icon.is-small
+                i.fas.fa-trash-alt
+
     .subtitle(v-else) Нет добавленных или найденных сертификатов
   .content
-    a.button.is-primary(@click='addCertfy') Добавить сертификат
+    a.button.is-primary(@click='openAddCertfy') Добавить сертификат
+
+  AddCertify(ref='addCertify')
 
 </template>
 
@@ -51,11 +65,16 @@
 <script>
 import { mapActions, mapState } from 'vuex'
 
+import AddCertify from './addCertify'
+
 export default {
   name: 'Certificates',
+  components: {
+    AddCertify
+  },
   data () {
     return {
-      sNumber: '9905000001'
+      sNumber: '9905748329'
     }
   },
   computed: {
@@ -64,12 +83,18 @@ export default {
     })
   },
   methods: {
-    addCertfy () {
+    edit (item) {
 
     },
+    activate (num) {
+
+    },
+    openAddCertfy () {
+      this.$refs.addCertify.toggle()
+    },
     ...mapActions('certificates', {
-      add: 'add',
       find: 'find',
+      remove: 'remove'
     })
   }
 }
@@ -99,5 +124,7 @@ export default {
 
 @include n-columns(300px, true, 5)
 
+.unactive
+  transform: rotate(180deg)
 
 </style>
