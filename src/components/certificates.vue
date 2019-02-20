@@ -43,7 +43,7 @@
               strong Состояние: 
               | {{ item.actual === 1 ? 'Активированный' : 'Неактивированный' }}
           .buttons.has-addons.is-centered(v-if='item.actual !== 1')
-            a.button.is-primary(@click='edit(item)')
+            a.button.is-primary(@click='openEditCertfy(item)')
               span.icon.is-small
                 i.fas.fa-edit
             a.button.is-primary(title='Активировать' @click='activate(item.number)')
@@ -58,6 +58,7 @@
     a.button.is-primary(@click='openAddCertfy') Добавить сертификат
 
   AddCertify(ref='addCertify')
+  EditCertify(ref='editCertify' :certify='choosenCertify')
 
 </template>
 
@@ -66,15 +67,18 @@
 import { mapActions, mapState } from 'vuex'
 
 import AddCertify from './addCertify'
+import EditCertify from './editCertify'
 
 export default {
   name: 'Certificates',
   components: {
-    AddCertify
+    AddCertify,
+    EditCertify
   },
   data () {
     return {
-      sNumber: '9905000001'
+      sNumber: '9905000001',
+      choosenCertify: null
     }
   },
   computed: {
@@ -83,8 +87,9 @@ export default {
     })
   },
   methods: {
-    edit (item) {
-
+    openEditCertfy (item) {
+      this.choosenCertify = item
+      this.$refs.editCertify.toggle()
     },
     openAddCertfy () {
       this.$refs.addCertify.toggle()

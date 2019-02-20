@@ -3,7 +3,7 @@
 section#app.section
   .container
     figure.image.is-48x48
-      img(alt='Vue logo' src='./assets/logo.png')
+      img(alt='Vue logo' src='https://upload.wikimedia.org/wikipedia/commons/5/53/Vue.js_Logo.svg')
     a.signout.button(v-if='token' @click='signout') Выход
     Auth(v-if='!token')
     Certificates(v-else)

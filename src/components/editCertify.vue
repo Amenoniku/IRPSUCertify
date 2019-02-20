@@ -1,10 +1,10 @@
 <template lang=pug>
 
 Modal.a-signin(
-  title="Добавить сертификат"
-  actionTitle="Добавить"
+  title="Редактировать сертификат"
+  actionTitle="Сохранить"
   ref="modal"
-  @action="addWrap"
+  @action="updateWrap"
 )
   FormInput(
     type='text'
@@ -28,16 +28,10 @@ Modal.a-signin(
     :warn='phnameWarn'
   )
   FormInput(
-    type='text'
-    v-model='email'
-    name='email'
-    placeholder='Email'
-    :warn='emailWarn'
-  )
-  FormInput(
     type='date'
     v-model='birthday'
     name='birthday'
+    :label='birthday'
     placeholder='дата рождения ребёнка ДД.ММ.ГГГГ'
     :warn='birthdayWarn'
   )
@@ -58,16 +52,23 @@ export default {
     Modal,
     FormInput
   },
+  props: ['certify'],
   data () {
-    return {
-      name: 'Имя',
-      soname: 'Фамилия',
-      phname: 'Отчество',
-      email: 'foo@bar.ru',
-      birthday: ''
-    }
+    return {}
   },
   computed: {
+    name () {
+      return this.certify ? this.certify.name : ''
+    },
+    soname () {
+      return this.certify ? this.certify.soname : ''
+    },
+    phname () {
+      return this.certify ? this.certify.phname : ''
+    },
+    birthday () {
+      return this.certify ? moment(this.certify.birthday).format('YYYY-MM-DD') : ''
+    },
     nameWarn () {
       let isValid = /^[а-яА-ЯёЁ]+([ -]{1}[а-яА-ЯёЁ]+){0,3}$/.test(this.name)
       return isValid ? '' : 'Неверное имя'
@@ -80,10 +81,6 @@ export default {
       let isValid = /^[а-яА-ЯёЁ]+([ -]{1}[а-яА-ЯёЁ]+){0,3}$/.test(this.phname)
       return isValid ? '' : 'Неверное Отчество'
     },
-    emailWarn () {
-      let isValid = /^[А-яёЁa-zA-Z0-9!#$%&'*+\\/=?^_`{|}~-]+(?:\.[А-яёЁa-zA-Z0-9!#$%&'*+\\/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9А-яёЁ](?:[a-zA-Z0-9-А-яёЁ]*[a-zA-Z0-9А-яёЁ])?\.)+[a-zA-Z0-9А-яёЁ](?:[a-zA-Z0-9-А-яёЁ]*[a-zA-Z0-9А-яёЁ])?$/.test(this.email)
-      return isValid ? '' : 'Неверный Email'
-    },
     birthdayWarn () {
       return this.birthday ? '' : 'Неверное День Рожденье'
     },
@@ -95,19 +92,19 @@ export default {
     toggle (url) {
       this.$refs.modal.toggle()
     },
-    addWrap () {
+    updateWrap () {
       if (!this.isValid) return
-      this.add({
+      this.update({
+        number: this.certify.number,
         name: this.name,
         soname: this.soname,
         phname: this.phname,
-        email: this.email,
-        birthday: moment(this.birthday).format('D.MM.YYYY')
+        birthday: moment(this.birthday).format('DD.MM.YYYY')
       })
       this.toggle()
     },
     ...mapActions('certificates', {
-      add: 'add'
+      update: 'update'
     })
   }
 }

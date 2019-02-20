@@ -52,13 +52,13 @@ export default {
         'apiWrapper',
         {
           cb: API.update,
-          params: [number, name, soname, phname, email, birthday],
+          params: [number, name, soname, phname, birthday],
           auth: true
         },
         {root: true}
       ).then(res => {
         console.log(res)
-        commit(UPDATE_CERTIFICATE, {number, name, soname, phname, email, birthday})
+        // commit(UPDATE_CERTIFICATE, {number, name, soname, phname, email, birthday})
       })
     },
     remove ({commit, dispatch}, number) {
