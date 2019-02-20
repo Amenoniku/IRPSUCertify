@@ -18,12 +18,12 @@ export const
       }
       return post('/oauth2/token', payload).then(generalSuccess, generalFailure)
     },
-    refreshToken (refreshToken) {
+    refreshToken (refreshToken, clientId, clientSecret) {
       let payload = {
         grant_type: 'refresh_token',
         refresh_token: refreshToken,
-        client_id: null,
-        client_secret: null
+        client_id: clientId,
+        client_secret: clientSecret
       }
       return post('/oauth2/token', payload).then(generalSuccess, generalFailure)
     }
@@ -46,7 +46,7 @@ export const
     find (number, token) {
       return get(`/v2/certificates/${number}`, undefined, token).then(generalSuccess, generalFailure)
     },
-    update (number, token) {
+    update (number, name, soname, phname, birthday, token) {
       let payload = {
         name,
         soname,

@@ -4,13 +4,14 @@ section#app.section
   .container
     figure.image.is-48x48
       img(alt='Vue logo' src='./assets/logo.png')
+    a.signout.button(v-if='token' @click='signout') Выход
     Auth(v-if='!token')
     Certificates(v-else)
 
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 import Auth from '@/components/auth'
 import Certificates from '@/components/certificates'
@@ -24,6 +25,11 @@ export default {
   computed: {
     ...mapState('session', {
       token: state => state.token
+    })
+  },
+  methods: {
+    ...mapActions('session', {
+      signout: 'signout'
     })
   }
 }
@@ -41,5 +47,7 @@ export default {
   color: #2c3e50
   figure
     float: left
+  .signout
+    float: right
 
 </style>
