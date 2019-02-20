@@ -2,7 +2,7 @@
 
 section#app.section
   .container
-    figure.image.is-48x48
+    figure.image.is-48x48.logo
       img(alt='Vue logo' src='https://upload.wikimedia.org/wikipedia/commons/5/53/Vue.js_Logo.svg')
     a.signout.button(v-if='token' @click='signout') Выход
     Auth(v-if='!token')
@@ -47,7 +47,18 @@ export default {
   color: #2c3e50
   figure
     float: left
+    animation: spin 30s linear infinite 
+    animation-delay: 5000ms
   .signout
     float: right
+
+
+@keyframes spin
+  0%
+    transform: rotate(0deg)
+  5%
+    transform: rotate(360deg)
+  100%
+    transform: rotate(360deg)
 
 </style>
