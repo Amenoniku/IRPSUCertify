@@ -13,8 +13,12 @@ export default {
     [ADD_CERTIFICATES] (state, item) {
       state.certificates.push(item)
     },
-    [UPDATE_CERTIFICATE] (state, item) {
+    [UPDATE_CERTIFICATE] (state, {number, name, soname, phname, birthday}) {
       let index = state.certificates.findIndex(item => item.number === number)
+      state.certificates[index].name = name
+      state.certificates[index].soname = soname
+      state.certificates[index].phname = phname
+      state.certificates[index].birthday = birthday
     },
     [REMOVE_CERTIFICATES] (state, number) {
       let index = state.certificates.findIndex(item => item.number === number)
@@ -47,7 +51,8 @@ export default {
         commit(ADD_CERTIFICATES, res.data)
       })
     },
-    update ({commit, dispatch}, {number, name, soname, phname, email, birthday}) {
+    update ({commit, dispatch}, {number, name, soname, phname, birthday}) {
+      commit(UPDATE_CERTIFICATE, {number, name, soname, phname, birthday})
       return dispatch(
         'apiWrapper',
         {
@@ -57,8 +62,7 @@ export default {
         },
         {root: true}
       ).then(res => {
-        console.log(res)
-        // commit(UPDATE_CERTIFICATE, {number, name, soname, phname, email, birthday})
+        commit(UPDATE_CERTIFICATE, {number, name, soname, phname, birthday})
       })
     },
     remove ({commit, dispatch}, number) {

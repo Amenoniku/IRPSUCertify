@@ -54,21 +54,14 @@ export default {
   },
   props: ['certify'],
   data () {
-    return {}
+    return {
+      name: '',
+      soname: '',
+      phname: '',
+      birthday: ''
+    }
   },
   computed: {
-    name () {
-      return this.certify ? this.certify.name : ''
-    },
-    soname () {
-      return this.certify ? this.certify.soname : ''
-    },
-    phname () {
-      return this.certify ? this.certify.phname : ''
-    },
-    birthday () {
-      return this.certify ? moment(this.certify.birthday).format('YYYY-MM-DD') : ''
-    },
     nameWarn () {
       let isValid = /^[а-яА-ЯёЁ]+([ -]{1}[а-яА-ЯёЁ]+){0,3}$/.test(this.name)
       return isValid ? '' : 'Неверное имя'
@@ -87,6 +80,15 @@ export default {
     isValid () {
       return !(this.nameWarn || this.sonameWarn || this.phnameWarn || this.emailWarn || this.birthdayWarn)
     }
+  },
+  watch: {
+    certify (v) {
+      if (!v) return
+      this.name = v.name
+      this.soname = v.soname
+      this.phname = v.phname
+      this.birthday = moment(v.birthday).format('YYYY-MM-DD')
+     }
   },
   methods: {
     toggle (url) {
